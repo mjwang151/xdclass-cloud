@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.61.102:8888
+        namespace: hubserviceapitest
+      config:
+        server-addr: 192.168.61.102:8888
+        file-extension: yml
+        namespace: hubserviceapitest
+    gateway:
+      routes: #数组形式
+        - id: order-service
+          uri: lb://xdclass-order-service
+          order: 1
+          predicates:
+            - Path=/order-server/**
+          filters: #过滤器，请求在传递过程中通过过滤器修改
+            - StripPrefix=1  #去掉第一层前缀
+      discovery:
+        locator:
+          enabled: true
+  zipkin:
+    base-url: http://192.168.61.102:9411/ #zipkin地址
+    discovery-client-enabled: false  #不用开启服务发现
+  sleuth:
+    sampler:
+      probability: 1.0 #采样百分比
+
+  profiles:
+    active: dev
+#http://192.168.68.60:8080/api-gateway/actuator/gateway/routes 可以查看网关
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

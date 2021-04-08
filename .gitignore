@@ -1,0 +1,6 @@
+# Project exclude paths
+/xdclass-api-gateway/target/
+/xdclass-common/target/
+/xdclass-order-service/target/
+/xdclass-user-service/target/
+/xdclass-video-service/target/

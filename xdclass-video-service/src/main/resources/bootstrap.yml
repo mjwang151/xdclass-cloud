@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: xdclass-video-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.61.102:8888
+        namespace: hubserviceapitest
+      config:
+        server-addr: 192.168.61.102:8888
+        file-extension: yml
+        namespace: hubserviceapitest
+    sentinel:
+      transport:
+        clientIp: 192.168.68.60
+        dashboard: 192.168.61.102:18880
+        port: 18880
+  zipkin:
+    base-url: http://192.168.61.102:9411/ #zipkin地址
+    discovery-client-enabled: false  #不用开启服务发现
+  profiles:
+    active: dev
+  ribbon:
+    #指的是建立连接后从服务器读取到可用资源所用的时间
+    ReadTimeout: 5000
+    #指的是建立连接所用的时间，适用于网络正常的情况下，两端连接所用的时间
+    ConnectTimeout: 5000
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
